@@ -1,11 +1,19 @@
 # GoctiTimeGizmo, a SugarCube macro
 
-This is a time-indicator 'gizmo' for [SugarCube](https://www.motoslave.net/sugarcube/2/) games. In the example image below you see a van, that van is the 'content' and can be whatever you would like or fits the theme for your game.
+GoctiTimeGizmo is a [SugarCube](https://www.motoslave.net/sugarcube/2/) macro and gives you a time-indicator 'gizmo' for use in your games. When you use this macro, you get a little scene that corresponds to the time of day that you provide.
+
+In the example image below you see a van ("The Mystery Machine"), that van is just an example however; and can be whatever you would like / fits the theme for your game.
+
+## What does it look like?
+
+In the image below, there are 12 separate uses of the macro, each with a different time of day having been set.
+
+![./example.png](./example.png)
 
 ## How do I add this macro to my game?
 
-1. Copy the contents of [macro.js]([./macro.js]) into your game's Javascript.
-2. Copy the contents of [style.css]([./style.css]) into your game's stylesheet.
+1. Copy the contents of [macro.js]([https://github.com/Goctionni/sugarcube-time-gizmo/blob/main/macro.js]) into your game's Javascript.
+2. Copy the contents of [style.css]([https://github.com/Goctionni/sugarcube-time-gizmo/blob/main/style.css]) into your game's stylesheet.
 3. Use the macro!
 
 ## How do I use this macro?
@@ -38,18 +46,21 @@ Instead of CONTENT_HERE, you can place any HTML you'd like. For example, you can
 
 Want to just use the mystery-machine as in the example?
 
-You can either download the [mystery-machine.svg](./mystery-machine.svg) and use a regular html `<img>`, or copy the contents of that file into a new SugarCube passage and use `<<include 'MysteryMachine svg Passage'>>`.
+You can either download the [mystery-machine.svg](https://raw.githubusercontent.com/Goctionni/sugarcube-time-gizmo/main/mystery-machine.svg) and use a regular html `<img>`, or copy the contents of that file into a new SugarCube passage and use `<<include 'MysteryMachine svg Passage'>>`.
 
-## What does it look like?
+## What does the macro actually do?
 
-![./example.png](./example.png)
+* It places the sun and moon at the appropriate place in the sky
+* It transitions the background to be the appropriate gradient
+* It places twinkling stars in the sky at night
+* It darkens and desaturates the visuals appropriately for the time of day
 
 ## Credits
 
 * [Sjoerd Hekking](https://github.com/SjoerdHekking) created the mystery-machine SVG image.
 * I got the beautiful color gradients for the horizon from this [Codepen by Peter Bork](https://codepen.io/bork/pen/WNrmWr).
 
-## Advanced
+## Further customization
 
 If you like, there's some CSS variables you can easily customize.
 The values listed below are the defaults.

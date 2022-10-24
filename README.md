@@ -12,6 +12,8 @@ In the image below, there are 12 separate uses of the macro, each with a differe
 
 ## How do I add this macro to my game?
 
+1. [Download macro.js](https://raw.githubusercontent.com/Goctionni/sugarcube-time-gizmo/main/macro.js "download") and copy its content into your game's Javascript.
+
 1. Copy the contents of <a href="https://raw.githubusercontent.com/Goctionni/sugarcube-time-gizmo/main/macro.js" download>macro.js</a> into your game's Javascript.
 2. Copy the contents of <a href="https://raw.githubusercontent.com/Goctionni/sugarcube-time-gizmo/main/style.css" download>style.css</a> into your game's stylesheet.
 3. Use the macro!

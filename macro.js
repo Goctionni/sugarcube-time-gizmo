@@ -221,7 +221,7 @@ Macro.add('GoctiTimeGizmo', {
             const progressNow = previousTime + easeInOutQuad(elapsed) * diff;
             containers.forEach((container) => container.style.setProperty(
               '--gtg-day-progress',
-              progressNow,
+              progressNow % 1000,
             ));
             if (elapsed < 1) requestAnimationFrame(animationFrame);
           };

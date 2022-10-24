@@ -12,8 +12,8 @@ In the image below, there are 12 separate uses of the macro, each with a differe
 
 ## How do I add this macro to my game?
 
-1. Copy the contents of [macro.js](https://github.com/Goctionni/sugarcube-time-gizmo/blob/main/macro.js) into your game's Javascript.
-2. Copy the contents of [style.css](https://github.com/Goctionni/sugarcube-time-gizmo/blob/main/style.css) into your game's stylesheet.
+1. Copy the contents of <a href="https://github.com/Goctionni/sugarcube-time-gizmo/blob/main/macro.js" download>macro.js</a> into your game's Javascript.
+2. Copy the contents of <a href="https://github.com/Goctionni/sugarcube-time-gizmo/blob/main/style.css" download>style.css</a> into your game's stylesheet.
 3. Use the macro!
 
 ## How do I use this macro?
@@ -46,7 +46,7 @@ Instead of CONTENT_HERE, you can place any HTML you'd like. For example, you can
 
 Want to just use the mystery-machine as in the example?
 
-You can either download the [mystery-machine.svg](https://raw.githubusercontent.com/Goctionni/sugarcube-time-gizmo/main/mystery-machine.svg) and use a regular html `<img>`, or copy the contents of that file into a new SugarCube passage and use `<<include 'MysteryMachine svg Passage'>>`.
+You can either download the <a href="https://raw.githubusercontent.com/Goctionni/sugarcube-time-gizmo/main/mystery-machine.svg" download>mystery-machine.svg</a> and use a regular html `<img>`, or copy the contents of that file into a new SugarCube passage and use `<<include 'MysteryMachine svg Passage'>>`.
 
 ## What does the macro actually do?
 

@@ -2,7 +2,7 @@ Macro.add('GoctiTimeGizmo', {
   tags: [],
   handler() {
     const updateEl = (_el, props = {}) => {
-      const {innerHTML, children, classList, style, as, ...attributes} = props;
+      const {innerHTML, children, classList, style, ...attributes} = props;
       if (innerHTML) {
         _el.innerHTML = innerHTML;
       }
@@ -22,11 +22,8 @@ Macro.add('GoctiTimeGizmo', {
           _el.appendChild(children);
         }
       }
-      if (as) {
-        store[as] = _el;
-      }
       if (style) {
-        Object.assign(_el.style, style);
+        Object.entries(style).forEach(([prop, value]) => _el.style.setProperty(prop, value));
       }
     };
 
@@ -34,14 +31,14 @@ Macro.add('GoctiTimeGizmo', {
       const store = {};
       const create = (tag, props = {}) => {
         const _el = document.createElement(tag);
-        updateEl(_el, props);
+        updateEl(_el, props, store);
         return _el;
       };
       return [create, store];
     };
     
     const createGoctiTimeWidget = (() => {
-      const [create, elements] = createFactory();
+      const [create] = createFactory();
 
       const createStars = ({numStars}) => {
         return Array.from({length: numStars}, () => create('span', {
@@ -187,7 +184,7 @@ Macro.add('GoctiTimeGizmo', {
             children: [
               create('div', {classList: 'gtg-sky', children: [
                 create('div', {classList: 'gtg-next-sky'}),
-                create('div', {classList: 'gtg-stars', children: createStars(numStars)}),
+                create('div', {classList: 'gtg-stars', children: createStars({numStars})}),
                 create('div', {classList: 'gtg-sun-moon', children: [
                   create('div', {classList: 'gtg-moon'}),
                   create('div', {classList: 'gtg-sun'}),
@@ -195,7 +192,6 @@ Macro.add('GoctiTimeGizmo', {
               ]}),
               create('div', {classList: 'gtg-ground'}),
               create('div', {
-                as: 'content',
                 classList: 'gtg-content',
                 children: child ? [child] : children ?? [],
                 innerHTML,

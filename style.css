@@ -115,7 +115,13 @@
   background-color: #FF0;
 }
 .gtg-moon {
-  background: radial-gradient(circle at calc(50% + var(--gtg-moon-shadow-progress, -40%) / 2), transparent, transparent 45%, #ddd 45%, #ddd);
+  background: radial-gradient(
+    circle at calc(50% + var(--gtg-moon-shadow-progress, -35%) / 2),
+    transparent,
+    transparent calc(var(--gtg-moon-shadow-size, 65%) * 0.7),
+    #ddd calc(var(--gtg-moon-shadow-size, 65%) * 0.7),
+    #ddd
+  );
 }
 .gtg-ground {
   background-color: var(--gtg-grass-color, #69B076);

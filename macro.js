@@ -1,6 +1,11 @@
+const GoctiTimeGizmoMemory = {};
 Macro.add('GoctiTimeGizmo', {
   tags: [],
   handler() {
+    const easeInOutQuad = (x) => {
+      return x < 0.5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2;
+    };
+
     const updateEl = (_el, props = {}) => {
       const {innerHTML, children, classList, style, ...attributes} = props;
       if (innerHTML) {
@@ -173,9 +178,15 @@ Macro.add('GoctiTimeGizmo', {
         }
       };
     
-      return ({target, parent, time, innerHTML, child, children, numStars = 125}) => {
-        const progress = parseTime(time);
+      return ({target, parent, time, innerHTML, child, children, numStars = 125, id}) => {
+        const parsedTime = parseTime(time);
+        const previousTime = !(id && id in GoctiTimeGizmoMemory)
+          ? null
+          : GoctiTimeGizmoMemory[id];
+        
+        const progress = previousTime ?? parsedTime;
         const containers = getContainer({target, parent});
+        GoctiTimeGizmoMemory[id] = parsedTime;
 
         containers.forEach((container) => {
           updateEl(container, {
@@ -199,6 +210,23 @@ Macro.add('GoctiTimeGizmo', {
             ]
           })
         });
+
+        if (previousTime !== null) {
+          const to = parsedTime + ((parsedTime < previousTime) ? 1000 : 0);
+          const diff = to - previousTime;
+          const start = Date.now();
+          const animationFrame = () => {
+            const now = Date.now();
+            const elapsed = Math.min(1, (now - start) / (diff * 2));
+            const progressNow = previousTime + easeInOutQuad(elapsed) * diff;
+            containers.forEach((container) => container.style.setProperty(
+              '--gtg-day-progress',
+              progressNow,
+            ));
+            if (elapsed < 1) requestAnimationFrame(animationFrame);
+          };
+          animationFrame();
+        }
       };
     })();
 
@@ -207,12 +235,14 @@ Macro.add('GoctiTimeGizmo', {
     
     const payload = document.createElement('div');
     $(payload).wiki(this.payload[0].contents);
-    
+
+    const rawArg = this.args.raw;
     createGoctiTimeWidget({
       target: wrapper,
-      time: this.args[0] || State.getVar($time),
+      time: this.args[0] || State.getVar('$time'),
       numStars: 125,
-      child: payload
+      child: payload,
+      id: rawArg,
     });
   }
 });

@@ -1,0 +1,176 @@
+.gtg-time-widget {
+  position: relative;
+  width: var(--gtg-size, 200px);
+  height: var(--gtg-size, 200px);
+  border: solid #FFF 4px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.gtg-sky {
+  position: relative;
+  height: 70%;
+  overflow: hidden;
+
+  animation: gtg-sky-colors 2s linear;
+  animation-delay: calc(-4s - var(--gtg-day-progress) / 1000 * 2s + 2s / 48);
+  animation-play-state: paused;
+  animation-iteration-count: infinite;
+}
+.gtg-next-sky {
+  position: absolute;
+  inset: 0;
+  animation:
+    gtg-sky-colors 2s linear,
+    gtg-second-background-pacity calc(2s / 24) linear;
+  animation-delay:
+    calc(-4s - var(--gtg-day-progress) / 1000 * 2s + 2s / 48 - 2s / 24),
+    calc(-4s - var(--gtg-day-progress) / 1000 * 2s + 2s / 48 - 2s / 48);
+  animation-play-state: paused;
+  animation-iteration-count: infinite;
+}
+
+.gtg-stars {
+  position: absolute;
+  inset: 0;
+  animation: gtg-stars-opacity 1s infinite ease-in-out;
+  animation-delay: calc(var(--gtg-day-progress) / 1000 * -1s);
+  animation-play-state: paused;
+}
+
+@keyframes gtg-stars-opacity {
+  0% {
+    opacity: 100%;
+  }
+  25% {
+    opacity: 0;
+  }
+  75% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.gtg-star {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #DDD;
+  transform: translate(-50%, -50%) scale(calc(var(--gtg-distance) * 0.1));
+  box-shadow: 0px 0px 30px 5px #fff;
+}
+.gtg-star:nth-child(2n) {
+  animation: gtg-twinkle 8s calc(var(--gtg-rng) * -100s) infinite ease-in-out;
+}
+
+@keyframes gtg-twinkle {
+  0% {
+    opacity: 100%;
+  }
+  20% {
+    opacity: 100%;
+  }
+  30% {
+    opacity: 0;
+  }
+  90% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes gtg-second-background-pacity {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.gtg-sun-moon {
+  position: absolute;
+  left: calc(var(--gtg-size, 200px) * 0.425);
+  width: calc(var(--gtg-size, 200px) * 0.15);
+  top: calc(var(--gtg-size, 200px) * 0.15);
+  height: var(--gtg-size, 200px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  --gtg-rotation: calc(var(--gtg-day-progress) * .36deg);
+  transform: rotate(var(--gtg-rotation));
+}
+.gtg-sun, .gtg-moon {
+  width: calc(var(--gtg-size, 200px) * 0.12);
+  height: calc(var(--gtg-size, 200px) * 0.12);
+  border-radius: 50%;
+  transform: rotate(calc(var(--gtg-rotation) * -1));
+}
+.gtg-sun {
+  background-color: #FF0;
+}
+.gtg-moon {
+  background: radial-gradient(circle at calc(50% + var(--gtg-moon-shadow-progress, -40%) / 2), transparent, transparent 45%, #ddd 45%, #ddd);
+}
+.gtg-ground {
+  background-color: var(--gtg-grass-color, #69B076);
+  height: 30%;
+}
+.gtg-content {
+  position: absolute;
+  bottom: 13%;
+  width: 70%;
+  height: 49%;
+  left: 15%;
+}
+.gtg-content,
+.gtg-ground {
+  animation: gtg-desaturation 2s ease-in-out;
+  animation-delay: calc(var(--gtg-day-progress) / 1000 * -2s);
+  animation-play-state: paused;
+}
+
+@keyframes gtg-desaturation {
+  0% {
+    filter: saturate(30%) brightness(30%);
+  }
+  50% {
+    filter: saturate(100%) brightness(100%);
+  }
+  100% {
+    filter: saturate(30%) brightness(30%);
+  }
+}
+
+@keyframes gtg-sky-colors {
+  0% {background: linear-gradient(180deg, #00000c, #00000c);}
+  4.17% {background: linear-gradient(180deg, #020111 85%,#191621 100%);}
+  8.33% {background: linear-gradient(180deg, #020111 60%,#20202c 100%);}
+  12.5% {background: linear-gradient(180deg, #020111 10%,#3a3a52 100%);}
+  16.67% {background: linear-gradient(180deg, #20202c 0%,#515175 100%);}
+  20.83% {background: linear-gradient(180deg, #40405c 0%,#6f71aa 80%,#8a76ab 100%);}
+  25% {background: linear-gradient(180deg, #4a4969 0%,#7072ab 50%,#cd82a0 100%);}
+  29.17% {background: linear-gradient(180deg, #757abf 0%,#8583be 60%,#eab0d1 100%);}
+  33.33% {background: linear-gradient(180deg, #82addb 0%,#ebb2b1 100%);}
+  37.5% {background: linear-gradient(180deg, #94c5f8 1%,#a6e6ff 70%,#b1b5ea 100%);}
+  41.67% {background: linear-gradient(180deg, #b7eaff 0%,#94dfff 100%);}
+  45.83% {background: linear-gradient(180deg, #9be2fe 0%,#67d1fb 100%);}
+  50% {background: linear-gradient(180deg, #90dffe 0%,#38a3d1 100%);}
+  54.17% {background: linear-gradient(180deg, #57c1eb 0%,#246fa8 100%);}
+  58.33% {background: linear-gradient(180deg, #2d91c2 0%,#1e528e 100%);}
+  62.5% {background: linear-gradient(180deg, #2473ab 0%,#1e528e 70%,#5b7983 100%);}
+  66.67% {background: linear-gradient(180deg, #1e528e 0%,#265889 50%,#9da671 100%);}
+  70.83% {background: linear-gradient(180deg, #1e528e 0%,#728a7c 50%,#e9ce5d 100%);}
+  75% {background: linear-gradient(180deg, #154277 0%,#576e71 30%,#e1c45e 70%,#b26339 100%);}
+  79.17% {background: linear-gradient(180deg, #163C52 0%,#4F4F47 30%,#C5752D 60%,#B7490F 80%, #2F1107 100%);}
+  83.33% {background: linear-gradient(180deg, #071B26 0%,#071B26 30%,#8A3B12 80%,#240E03 100%);}
+  87.5% {background: linear-gradient(180deg, #010A10 30%,#59230B 80%,#2F1107 100%);}
+  91.67% {background: linear-gradient(180deg, #090401 50%,#4B1D06 100%);}
+  95.83% {background: linear-gradient(180deg, #090401 50%,#4B1D06 100%);}
+  100% {background: linear-gradient(180deg, #00000c, #00000c);}
+}

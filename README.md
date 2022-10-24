@@ -1,1 +1,3 @@
-# sugarcube-time-gizmo
+# GoctiTimeGizmo, a SugarCube macro
+
+![./example.png](./example.png)

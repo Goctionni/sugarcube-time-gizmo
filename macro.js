@@ -179,14 +179,20 @@ Macro.add('GoctiTimeGizmo', {
       };
     
       return ({target, parent, time, innerHTML, child, children, numStars = 125, id}) => {
+        const stateIndex = State.length;
+        const direction = (id && id in GoctiTimeGizmoMemory)
+          ? (stateIndex > GoctiTimeGizmoMemory[id].stateIndex ? 1 : -1)
+          : 1;
+
         const parsedTime = parseTime(time);
         const previousTime = !(id && id in GoctiTimeGizmoMemory)
           ? null
-          : GoctiTimeGizmoMemory[id];
+          : GoctiTimeGizmoMemory[id].time;
         
-        const progress = previousTime ?? parsedTime;
+        const progress = (direction !== 0) ? (previousTime ?? parsedTime) : parsedTime;
         const containers = getContainer({target, parent});
-        GoctiTimeGizmoMemory[id] = parsedTime;
+
+        GoctiTimeGizmoMemory[id] = {time: parsedTime, stateIndex: State.length};
 
         containers.forEach((container) => {
           updateEl(container, {
@@ -211,17 +217,22 @@ Macro.add('GoctiTimeGizmo', {
           })
         });
 
-        if (previousTime !== null) {
-          const to = parsedTime + ((parsedTime < previousTime) ? 1000 : 0);
+        if (previousTime !== null && direction !== 0) {
+          let to = parsedTime;
+          if (parsedTime < previousTime && direction === 1) {
+            to += 1000;
+          } else if (parsedTime > previousTime && direction === -1) {
+            to -= 1000;
+          }
           const diff = to - previousTime;
           const start = Date.now();
           const animationFrame = () => {
             const now = Date.now();
-            const elapsed = Math.min(1, (now - start) / (diff * 2));
+            const elapsed = Math.min(1, (now - start) / Math.abs(diff * 2));
             const progressNow = previousTime + easeInOutQuad(elapsed) * diff;
             containers.forEach((container) => container.style.setProperty(
               '--gtg-day-progress',
-              progressNow % 1000,
+              (10000 + progressNow) % 1000,
             ));
             if (elapsed < 1) requestAnimationFrame(animationFrame);
           };
